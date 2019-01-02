@@ -16,13 +16,13 @@ import com.yan.springboot.lucene.ik.util.IndexDemo;
 @RestController
 public class DataBaseController {
 	 
-	@Autowired DataBaseDao dao; 
+	@Autowired DataBaseDao dataBaseDao; 
 	@Autowired IndexDemo indexDemo; 
 	
 	@GetMapping("/createIndex") 
 	public String createIndex(){ 
 		//查询数据库，必须要批量查询 
-		int fc = dao.foodcount();
+		int fc = dataBaseDao.foodcount();
 		//查询总行数    8 
 		int start = 0;  
 		//开始位置 
@@ -35,7 +35,7 @@ public class DataBaseController {
 	     */ 
 		while(start<=rows){ 
 			//每拉取一次数据 
-			List<Map<String, Object>> queryFood=dao.queryFood(start, rows); 
+			List<Map<String, Object>> queryFood=dataBaseDao.queryFood(start, rows); 
 			//获取字段 
 			for(int i=0;i<queryFood.size();i++){ 
 				//获取每行数据 

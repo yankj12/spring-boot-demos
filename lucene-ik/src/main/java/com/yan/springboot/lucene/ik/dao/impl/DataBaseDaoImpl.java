@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.yan.springboot.lucene.ik.dao.facade.DataBaseDao;
+
 @Repository
-public class DataBaseDaoImpl {
+public class DataBaseDaoImpl implements DataBaseDao{
 
 	@Autowired JdbcTemplate jdbc; 
 	
