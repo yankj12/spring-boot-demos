@@ -32,7 +32,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 public class IndexDemo { 
 	
 	//Lucene索引文件路径 
-	static String dir="E:\\lucence"; 
+	static String dir="E:\\lucence\\springboot-lucene-ik"; 
 	
 	//定义分词器 
 	static Analyzer analyzer = new IKAnalyzer(); 
