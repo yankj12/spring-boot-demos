@@ -39,3 +39,5 @@ lucene增量索引，可以参考下面的链接
 [lucene 4.6 为数据库建立增量索引](https://blog.csdn.net/th676759829/article/details/17753803)
 
 也有网友建议查看lucene in action
+
+[SpringBoot系列(6)---SpringBoot-JPA](https://blog.csdn.net/tony308001970/article/details/74999680)
