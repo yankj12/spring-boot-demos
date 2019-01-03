@@ -2,6 +2,26 @@
 
 SpringBoot结合lucene和ik分词的demo
 
+## 常见问题
+
+### 提示food_name找不到对应的列，但是我们表和实体类中都是使用的foodName
+
+Hibernate 5.0命名策略使用naming-strategy不起作用
+
+SpringBoot jpa 1.3.3版本以上，Hibernate5.0的新特性就是其中一个坑，我们会发现我们配置的naming-strategy不生效了
+
+上面这么信息，其实就是想表达如果想升级Hibernate到5.1的话，那么之前的
+
+hibernate.ejb.naming_strategy将不再被支持，大概应该改为如下配置：
+
+```
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+```
+
+hibernate5之后如何和SpringBoot结合，可以参考如下链接
+
+[神の笔记 Spring Boot 整合 Hibernate5 ](http://www.cnblogs.com/xiongjiajia/p/7553287.html)
+
 ## 参考资料
 
 [lucene+springboot+ik Analyzer实现mysql数据库高亮查询](https://blog.csdn.net/biaoge0310/article/details/79115536)

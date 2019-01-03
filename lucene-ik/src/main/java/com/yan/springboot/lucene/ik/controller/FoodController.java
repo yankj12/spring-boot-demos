@@ -11,4 +11,10 @@ public class FoodController {
 		
 		return "search";
 	}
+	
+	@RequestMapping(value = "editFood")
+	public String addFood(){
+		
+		return "FoodEdit";
+	}
 }

@@ -8,9 +8,13 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yan.springboot.lucene.ik.dao.facade.DataBaseDao;
+import com.yan.springboot.lucene.ik.dao.facade.FoodRepository;
+import com.yan.springboot.lucene.ik.schema.Food;
 import com.yan.springboot.lucene.ik.util.IndexDemo;
 
 @RestController
@@ -18,6 +22,9 @@ public class DataBaseController {
 	 
 	@Autowired DataBaseDao dataBaseDao; 
 	@Autowired IndexDemo indexDemo; 
+	
+	@Autowired
+	FoodRepository foodRepository;
 	
 	@GetMapping("/createIndex") 
 	public String createIndex(){ 
@@ -65,4 +72,15 @@ public class DataBaseController {
 	public List<Map> getFood(String keyWord) throws Exception{ 
 		return indexDemo.search("foodname", keyWord); 
 	} 
+	
+	@PostMapping("/food")
+	public String addFood(String foodName, Double price, String imagePath){
+		Food food = new Food();
+		food.setFoodName(foodName);
+		food.setPrice(price);
+		food.setImagePath(imagePath);
+		
+		foodRepository.save(food);
+		return "success";
+	}
 }
