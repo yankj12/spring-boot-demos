@@ -32,8 +32,9 @@ public class TestLucene {
 
 	public static final String INDEX_DIR = "E:\\lucence\\novel";
 	
+	public static final String BOOK_NAME = "橙红年代";
+	
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 		//createIndex();
 		
 		createIndex("E:\\文档\\小说\\橙红年代全文阅读\\chapters");
@@ -175,6 +176,7 @@ public class TestLucene {
                 		// 如果不是空行再创建索引
                 		if(line != null && !"".equals(line.trim())){
                 			Document document = new Document();
+                			document.add(new TextField("bookname", BOOK_NAME, Store.YES));
                 			document.add(new TextField("filename", file.getName(), Store.YES));
                 			document.add(new LongField("lineno", lineNo, Store.YES));
                 			document.add(new TextField("content", line, Store.YES));
@@ -224,6 +226,8 @@ public class TestLucene {
             for (int i = 0; i < hits.length; i++) {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 System.out.println("____________________________");
+    			
+                System.out.println(hitDoc.get("bookname"));
                 System.out.println(hitDoc.get("filename"));
                 System.out.println(hitDoc.get("lineno") + "行");
                 System.out.println(hitDoc.get("content"));
