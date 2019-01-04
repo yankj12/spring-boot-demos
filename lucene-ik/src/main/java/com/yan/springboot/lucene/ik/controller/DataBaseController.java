@@ -74,13 +74,31 @@ public class DataBaseController {
 	} 
 	
 	@PostMapping("/food")
-	public String addFood(String foodName, Double price, String imagePath){
+	public String addFood(String foodName, Double price, String imagePath) throws Exception{
 		Food food = new Food();
 		food.setFoodName(foodName);
 		food.setPrice(price);
 		food.setImagePath(imagePath);
 		
-		foodRepository.save(food);
+		food = foodRepository.save(food);
+		//System.out.println(food.getFoodId());
+
+		// 增量增加索引
+		//创建Document对象 
+		Document doc = new Document(); 
+		//获取每列数据 
+		Field foodid=new Field("foodid", food.getFoodId() != null?Integer.toString(food.getFoodId()):"", TextField.TYPE_STORED); 
+		Field foodname=new Field("foodname",foodName, TextField.TYPE_STORED); 
+		Field priceField=new Field("price", Double.toString(price), TextField.TYPE_STORED); 
+		Field imagepath=new Field("imagepath",imagePath, TextField.TYPE_STORED); 
+		//添加到Document中 
+		doc.add(foodid); 
+		doc.add(foodname); 
+		doc.add(priceField); 
+		doc.add(imagepath); 
+		
+		indexDemo.appendIndex(doc);
+		
 		return "success";
 	}
 }

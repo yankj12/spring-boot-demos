@@ -13,6 +13,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -32,7 +33,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 public class IndexDemo { 
 	
 	//Lucene索引文件路径 
-	static String dir="E:\\lucence\\springboot-lucene-ik"; 
+	public static final String INDEX_DIR ="E:\\lucence\\springboot-lucene-ik"; 
 	
 	//定义分词器 
 	static Analyzer analyzer = new IKAnalyzer(); 
@@ -43,7 +44,7 @@ public class IndexDemo {
 	public void write(Document doc){ 
 		try { 
 			//索引库的存储目录 
-			Directory directory = FSDirectory.open(new File(dir)); 
+			Directory directory = FSDirectory.open(new File(INDEX_DIR)); 
 			//关联当前lucence版本和分值器 
 			IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer); 
 			//传入目录和分词器 
@@ -62,7 +63,7 @@ public class IndexDemo {
 	//搜索 
 	public List<Map> search(String field,String value) throws Exception{ 
 		//索引库的存储目录 
-		Directory directory = FSDirectory.open(new File(dir)); 
+		Directory directory = FSDirectory.open(new File(INDEX_DIR)); 
 		
 		//读取索引库的存储目录 
 		DirectoryReader ireader = DirectoryReader.open(directory); 
@@ -109,4 +110,58 @@ public class IndexDemo {
 		directory.close(); 
 		return list; 
 	} 
+	
+	public void appendIndex(Document doc) throws Exception{
+		//索引库的存储目录 
+		Directory directory = FSDirectory.open(new File(INDEX_DIR)); 
+		//关联当前lucence版本和分值器 
+		IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer); 
+		
+		IndexWriter iwriter = new IndexWriter(directory, config); 
+		
+		iwriter.addDocument(doc);
+
+		iwriter.commit();
+		iwriter.close();
+	}
+	
+	/**
+	 * 根据条件删除索引
+	 * 
+	 * 个人感觉lucene中的term类似于sql中的where
+	 * @param term
+	 * @throws Exception
+	 */
+	public void deleteIndex(Term term) throws Exception{
+		//索引库的存储目录 
+		Directory directory = FSDirectory.open(new File(INDEX_DIR)); 
+		//关联当前lucence版本和分值器 
+		IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer); 
+		
+		IndexWriter iwriter = new IndexWriter(directory, config); 
+		
+		iwriter.deleteDocuments(term);;
+
+		iwriter.close();
+	}
+	
+	/**
+	 * 更新索引
+	 * 
+	 * @param term
+	 * @param doc
+	 * @throws Exception
+	 */
+	public void updateIndex(Term term, Document doc) throws Exception{
+		//索引库的存储目录
+		Directory directory = FSDirectory.open(new File(INDEX_DIR)); 
+		//关联当前lucence版本和分值器 
+		IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer); 
+		
+		IndexWriter iwriter = new IndexWriter(directory, config); 
+		
+		iwriter.updateDocument(term, doc);;
+
+		iwriter.close();
+	}
 }
