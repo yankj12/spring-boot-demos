@@ -41,3 +41,19 @@ lucene增量索引，可以参考下面的链接
 也有网友建议查看lucene in action
 
 [SpringBoot系列(6)---SpringBoot-JPA](https://blog.csdn.net/tony308001970/article/details/74999680)
+
+### lucene索引excel等文件内容
+
+使用poi等解析word或者excel中内容，进行索引
+
+[使用Lucene索引和检索POI数据](https://www.cnblogs.com/luxiaoxun/p/5020247.html)
+
+使用tika
+
+[【Lucene4.8教程之二】索引](https://www.cnblogs.com/jinhong-lu/p/4559446.html)
+
+[Tika常见格式文件抽取内容并做预处理](https://www.cnblogs.com/baiboy/p/tika.html)
+
+[【Tika基础教程之一】Tika基础教程](https://www.cnblogs.com/eaglegeek/p/4557910.html)
+
+[TIKA提取MS Office文件 ](https://www.yiibai.com/tika/tika_extracting_ms_office_files.html)
