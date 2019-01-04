@@ -29,9 +29,9 @@ public class DataBaseController {
 	@GetMapping("/createIndex") 
 	public String createIndex(){ 
 		//查询数据库，必须要批量查询 
-		int fc = dataBaseDao.foodcount();
+		int foodTotalCount = dataBaseDao.foodcount();
 		//查询总行数    8 
-		int start = 0;  
+		int skip = 0;  
 		//开始位置 
 		int rows = 5;   
 		//每页行数 
@@ -40,9 +40,9 @@ public class DataBaseController {
 	     * 5---9  5
 	     * 10---14  5
 	     */ 
-		while(start<=rows){ 
+		while(skip <= foodTotalCount){ 
 			//每拉取一次数据 
-			List<Map<String, Object>> queryFood=dataBaseDao.queryFood(start, rows); 
+			List<Map<String, Object>> queryFood=dataBaseDao.queryFood(skip, rows); 
 			//获取字段 
 			for(int i=0;i<queryFood.size();i++){ 
 				//获取每行数据 
@@ -61,8 +61,8 @@ public class DataBaseController {
 				doc.add(imagepath); 
 				//调用，创建索引库 
 				indexDemo.write(doc); 
-			} 
-			start=rows+1; 
+			}
+			skip += rows; 
 		} 
 		return "成功"; 
 	} 
