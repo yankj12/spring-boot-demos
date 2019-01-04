@@ -3,9 +3,8 @@ package test.lucene;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +14,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
@@ -26,6 +26,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.wltea.analyzer.lucene.IKAnalyzer;
 
 public class TestLucene {
 
@@ -137,13 +138,17 @@ public class TestLucene {
         
         String content = null;
         for (File file : fileList) {
-            content = "";
+        	// 文本文件拆分成行
+        	List<String> lines = null;
+        	
+        	content = "";
             //获取文件后缀
             String type = file.getName().substring(file.getName().lastIndexOf(".")+1);
             if("txt".equalsIgnoreCase(type)){
                 
-                content += txt2String(file);
+                //content += txt2String(file);
             
+            	lines = txt2StringList(file);
             }
             
             System.out.println("name :"+file.getName());
@@ -153,7 +158,8 @@ public class TestLucene {
             
             
             try{
-            	Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+            	//Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+            	Analyzer analyzer = new IKAnalyzer();
             	Directory directory = FSDirectory.open(new File(INDEX_DIR));
     
                 File indexFile = new File(INDEX_DIR);
@@ -163,11 +169,23 @@ public class TestLucene {
                 IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer);
                 IndexWriter indexWriter = new IndexWriter(directory, config);
                 
-                Document document = new Document();
-                document.add(new TextField("filename", file.getName(), Store.YES));
-                document.add(new TextField("content", content, Store.YES));
-                document.add(new TextField("path", file.getPath(), Store.YES));
-                indexWriter.addDocument(document);
+                if(lines != null){
+                	int lineNo = 1;
+                	for(String line : lines){
+                		// 如果不是空行再创建索引
+                		if(line != null && !"".equals(line.trim())){
+                			Document document = new Document();
+                			document.add(new TextField("filename", file.getName(), Store.YES));
+                			document.add(new LongField("lineno", lineNo, Store.YES));
+                			document.add(new TextField("content", line, Store.YES));
+                			document.add(new TextField("path", file.getPath(), Store.YES));
+                			indexWriter.addDocument(document);
+                			
+                		}
+                		// 不管是不是空行，行号都要加1
+                		lineNo++;
+                	}
+                }
                 indexWriter.commit();
                 
                 // 关闭indexWriter
@@ -192,7 +210,9 @@ public class TestLucene {
         Date date1 = new Date();
         try{
         	Directory directory = FSDirectory.open(new File(INDEX_DIR));
-        	Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+        	//Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+        	Analyzer analyzer = new IKAnalyzer();
+        	
             DirectoryReader ireader = DirectoryReader.open(directory);
             IndexSearcher isearcher = new IndexSearcher(ireader);
     
@@ -205,6 +225,7 @@ public class TestLucene {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 System.out.println("____________________________");
                 System.out.println(hitDoc.get("filename"));
+                System.out.println(hitDoc.get("lineno") + "行");
                 System.out.println(hitDoc.get("content"));
                 System.out.println(hitDoc.get("path"));
                 System.out.println("____________________________");
@@ -233,5 +254,22 @@ public class TestLucene {
 		}
 		reader.close();
 		return contentBuilder.toString();
+    }
+    
+    public static List<String> txt2StringList(File file) throws Exception{
+    	List<String> lines = new ArrayList<String>();
+    	String chartset = "UTF-8";
+		if(chartset == null || "".equals(chartset.trim())) {
+			chartset = "UTF-8";
+		}
+		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), chartset));
+		
+		String line = null;
+		while((line = reader.readLine())!= null) {
+			
+			lines.add(line);
+		}
+		reader.close();
+		return lines;
     }
 }
