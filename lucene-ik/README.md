@@ -57,3 +57,9 @@ lucene增量索引，可以参考下面的链接
 [【Tika基础教程之一】Tika基础教程](https://www.cnblogs.com/eaglegeek/p/4557910.html)
 
 [TIKA提取MS Office文件 ](https://www.yiibai.com/tika/tika_extracting_ms_office_files.html)
+
+使用日志
+
+[SpringBoot默认日志框架配置](https://blog.csdn.net/flysun3344/article/details/80555746)
+
+[SpringBoot的日志管理](https://www.cnblogs.com/zhangzhen894095789/p/6640808.html)
