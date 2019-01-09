@@ -19,5 +19,6 @@
   <modules>
   	<module>lucene-ik</module>
     <module>springboot-upload</module>
+    <module>springboot-rabbitmq</module>
   </modules>
 </project>
