@@ -55,6 +55,12 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId> 
 		</dependency>
 		
+		<!-- 日志打印的依赖 -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>		
+
 		<!-- mysql依赖 --> 
 		<dependency> 
 			<groupId>Mysql</groupId> 

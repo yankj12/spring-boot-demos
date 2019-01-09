@@ -6,12 +6,15 @@ import java.util.Map;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
 import com.yan.springboot.lucene.ik.dao.facade.DataBaseDao;
 import com.yan.springboot.lucene.ik.dao.facade.FoodRepository;
 import com.yan.springboot.lucene.ik.schema.Food;
@@ -20,6 +23,8 @@ import com.yan.springboot.lucene.ik.util.IndexDemo;
 @RestController
 public class DataBaseController {
 	 
+	private static Logger logger = LoggerFactory.getLogger(DataBaseController.class);
+	
 	@Autowired DataBaseDao dataBaseDao; 
 	@Autowired IndexDemo indexDemo; 
 	
@@ -69,8 +74,15 @@ public class DataBaseController {
 	
 	//搜索，实现高亮 
 	@GetMapping("/searchFood") 
-	public List<Map> getFood(String keyWord) throws Exception{ 
-		return indexDemo.search("foodname", keyWord); 
+	public List<Map> getFood(String keyWord) throws Exception{
+		logger.info("searchFood,查询关键词:" + keyWord);
+		List<Map> result = indexDemo.search("foodname", keyWord);
+		
+		ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(result);
+
+        logger.info("searchFood,查询结果:" + jsonString);
+		return result;
 	} 
 	
 	@PostMapping("/food")
