@@ -22,6 +22,12 @@ public class FileUploadController {
 		return "/file";
 	}
 
+	// 访问路径为：http://127.0.0.1:8080/file
+	@RequestMapping("/ajaxfile")
+	public String ajaxfile() {
+		return "/ajaxfile";
+	}
+	
 	/**
 	 * 文件上传具体实现方法;
 	 * 
@@ -57,4 +63,31 @@ public class FileUploadController {
 			return "上传失败，因为文件是空的.";
 		}
 	}
+	
+	@RequestMapping("/ajaxupload")
+	@ResponseBody
+	public String ajaxupload(@RequestParam("file") MultipartFile file) {
+		String fileName = file.getOriginalFilename();
+		if (fileName.indexOf("\\") != -1) {
+			fileName = fileName.substring(fileName.lastIndexOf("\\"));
+		}
+		String category = "image";
+		String filePath = UPLOAD_FILE_ROOT_DIR + File.separator + category;
+		File targetFile = new File(filePath);
+		if (!targetFile.exists()) {
+			targetFile.mkdirs();
+		}
+		FileOutputStream out = null;
+		try {
+			out = new FileOutputStream(UPLOAD_FILE_ROOT_DIR + File.separator + category + File.separator + fileName);
+			out.write(file.getBytes());
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "上传失败";
+		}
+		return "上传成功!";
+	}
+
 }
