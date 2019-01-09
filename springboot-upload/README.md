@@ -10,3 +10,5 @@ SpringBoot结合实现文件上传
 ## 常见问题
 
 ## 参考资料
+
+[解决使用Spring Boot、Multipartfile上传文件路径错误问题](https://blog.csdn.net/daniel7443/article/details/51620308)
