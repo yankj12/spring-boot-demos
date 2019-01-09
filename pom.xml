@@ -18,5 +18,6 @@
 
   <modules>
   	<module>lucene-ik</module>
+    <module>springboot-upload</module>
   </modules>
 </project>
