@@ -63,3 +63,7 @@ lucene增量索引，可以参考下面的链接
 [SpringBoot默认日志框架配置](https://blog.csdn.net/flysun3344/article/details/80555746)
 
 [SpringBoot的日志管理](https://www.cnblogs.com/zhangzhen894095789/p/6640808.html)
+
+打印日志的时候，将对象转成json字符串打印到日志中
+
+[Jackson数据绑定 ](https://www.yiibai.com/jackson/jackson_data_binding.html)
