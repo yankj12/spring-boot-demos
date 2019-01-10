@@ -9,3 +9,7 @@ SpringBoot结合一些中间件的demo
 [SpringBoot上传文件](./springboot-upload/README.md)
 
 [SpringBoot结合RabbitMQt](./springboot-rabbitmq/README.md)
+
+[SpringBoot结合RabbitMQt](./springboot-redis/README.md)
+
+[SpringBoot结合bootstrap](./springboot-bootstrap/README.md)

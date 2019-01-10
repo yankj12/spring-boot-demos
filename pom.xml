@@ -21,5 +21,6 @@
     <module>springboot-upload</module>
     <module>springboot-rabbitmq</module>
     <module>springboot-bootstrap</module>
+    <module>springboot-redis</module>
   </modules>
 </project>
