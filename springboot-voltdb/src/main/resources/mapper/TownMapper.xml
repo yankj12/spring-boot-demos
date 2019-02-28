@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 指定dao -->
+<mapper namespace="com.yan.springboot.voltdb.mapper.TownMapper">
+ 
+    <select id="findFirstX" parameterType="int" resultType="com.yan.springboot.voltdb.schema.Town">
+        SELECT town, state, state_num AS stateNum, county, county_num AS countyNum, elevation FROM towns limit #{first}
+    </select>
+    
+</mapper>

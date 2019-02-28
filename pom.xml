@@ -22,5 +22,6 @@
     <module>springboot-rabbitmq</module>
     <module>springboot-bootstrap</module>
     <module>springboot-redis</module>
+    <module>springboot-voltdb</module>
   </modules>
 </project>
