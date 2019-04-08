@@ -24,5 +24,6 @@
     <module>springboot-redis</module>
     <module>springboot-voltdb</module>
     <module>springboot-h2</module>
+    <module>springboot-security</module>
   </modules>
 </project>
