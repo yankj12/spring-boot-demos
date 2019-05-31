@@ -25,5 +25,6 @@
     <module>springboot-voltdb</module>
     <module>springboot-h2</module>
     <module>springboot-security</module>
+    <module>springboot-transaction-aop</module>
   </modules>
 </project>
