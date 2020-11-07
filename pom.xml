@@ -23,6 +23,8 @@
     <module>springboot-bootstrap</module>
     <module>springboot-redis</module>
     <module>springboot-voltdb</module>
-	<module>springboot-multi-thread</module>
-  </modules>
+    <module>springboot-h2</module>
+    <module>springboot-security</module>
+    <module>springboot-transaction-aop</module>
+    <module>springboot-multi-thread</module>  </modules>
 </project>
