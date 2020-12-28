@@ -5,11 +5,13 @@ import java.util.concurrent.TimeUnit;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.yan.redisson.schema.User;
+import com.yan.redisson.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,14 +21,21 @@ import lombok.extern.slf4j.Slf4j;
 public class RedissonController {
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-
-    @Autowired
     private RedissonClient redissonClient;
 
-    @GetMapping("/get")
-    public String get(){
-        return stringRedisTemplate.opsForValue().get("key");
+    @Autowired
+    private UserService userService;
+    
+    @GetMapping("/getFlag/{code}")
+    public String getFlag(@PathVariable("code") String code){
+    	String flag = userService.findFlag(code);
+    	return flag;
+    }
+    
+    @GetMapping("/get/{id}")
+    public User get(@PathVariable("id") String id){
+    	User user = userService.findUser(id);
+    	return user;
     }
     
     @GetMapping(value = "/save/{key}")

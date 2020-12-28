@@ -22,12 +22,27 @@ class RedissonControllerTest {
 	@Autowired
     private MockMvc mockMvc;
 	
-	@Test
+	//@Test
 	void testRedissonTest() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/redisson/save/redis_lock_student").accept(MediaType.APPLICATION_JSON))
         	.andExpect(MockMvcResultMatchers.status().isOk())
         	.andDo(MockMvcResultHandlers.print())
         	.andReturn();
 	}
+	
+	@Test
+	void testGetUser() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/redisson/get/zhagn_san").accept(MediaType.APPLICATION_JSON))
+        	.andExpect(MockMvcResultMatchers.status().isOk())
+        	.andDo(MockMvcResultHandlers.print())
+        	.andReturn();
+	}
 
+	@Test
+	void testGetFlag() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/redisson/getFlag/LOG_CONFIG").accept(MediaType.APPLICATION_JSON))
+        	.andExpect(MockMvcResultMatchers.status().isOk())
+        	.andDo(MockMvcResultHandlers.print())
+        	.andReturn();
+	}
 }
