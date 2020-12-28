@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.yan</groupId>
-  <artifactId>springboot-redis</artifactId>
+  <artifactId>yan-springboot-redis</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>springboot-redis</name>
   <url>http://maven.apache.org</url>

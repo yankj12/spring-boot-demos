@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.yan</groupId>
-  <artifactId>spring-boot-demos</artifactId>
+  <artifactId>yan-spring-boot-demos</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -19,12 +19,14 @@
   <modules>
   	<module>lucene-ik</module>
     <module>springboot-upload</module>
-    <module>springboot-rabbitmq</module>
+    <module>yan-springboot-rabbitmq</module>
     <module>springboot-bootstrap</module>
-    <module>springboot-redis</module>
+    <module>yan-springboot-redis</module>
     <module>springboot-voltdb</module>
     <module>springboot-h2</module>
     <module>springboot-security</module>
     <module>springboot-transaction-aop</module>
-    <module>springboot-multi-thread</module>  </modules>
+    <module>springboot-multi-thread</module>
+	<module>yan-springboot-redisson</module>
+  </modules>
 </project>
