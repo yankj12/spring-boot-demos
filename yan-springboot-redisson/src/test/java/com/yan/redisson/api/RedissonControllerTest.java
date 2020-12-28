@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@DisplayName("TaskMapperTest")
+@DisplayName("TaskRedissonController")
 class RedissonControllerTest {
 
 	@Autowired
