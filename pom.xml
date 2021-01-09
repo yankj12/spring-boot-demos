@@ -28,5 +28,7 @@
     <module>springboot-transaction-aop</module>
     <module>springboot-multi-thread</module>
 	<module>yan-springboot-redisson</module>
+	<module>yan-springboot-kafka</module>
+	<module>yan-springboot-all</module>
   </modules>
 </project>
